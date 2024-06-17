@@ -69,4 +69,4 @@ These variables are needed to estimate the efficiency of regressions:
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/neutrino-direction-regression.git
+   git clone https://github.com/xShadeen/ML_Project.git
