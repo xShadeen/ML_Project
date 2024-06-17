@@ -34,7 +34,7 @@ True (genereted) variables needed to estimate efficiency of regressions:
 
     dir_x, dir_y, dir_z - true particle direction, coordinates x, y, z
 
-#TASK
+TASK
 Neutrino direction regression using CNN
 
     Treat each neutrino class separately. It allows to check whether different neutrinos
