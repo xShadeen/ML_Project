@@ -1,55 +1,72 @@
-Meaning of parameters:
+# Neutrino Direction Regression using CNN
 
-    jmuon_E - particle energy reconstructed using Jmuon algoritm
+This project focuses on the regression of neutrino directions using Convolutional Neural Networks (CNN). The task involves treating each neutrino class separately to determine if different neutrinos exhibit the same or different directions.
 
-    jmuon_JENERGY_ENERGY - reconstructed particle energy
+## Meaning of Parameters
 
-    jmuon_JENERGY_CHI2 - chi2 from reconstructed energy fit
-    
-    jmuon_JENERGY_NDF - number of degrees of freedom from reconstructed energy fit
+### Reconstructed Parameters
+- **jmuon_E**: Particle energy reconstructed using the Jmuon algorithm.
+- **jmuon_JENERGY_ENERGY**: Reconstructed particle energy.
+- **jmuon_JENERGY_CHI2**: Chi-squared value from the reconstructed energy fit.
+- **jmuon_JENERGY_NDF**: Number of degrees of freedom from the reconstructed energy fit.
+- **jmuon_t**: Time.
+- **jmuon_likelihood**: Likelihood of the track reconstruction fit.
+- **jmuon_pos_x, jmuon_pos_y, jmuon_pos_z**: Particle position coordinates (x, y, z).
+- **jmuon_dir_x, jmuon_dir_y, jmuon_dir_z**: Particle direction coordinates (x, y, z).
+- **jmuon_JSHOWERFIT_ENERGY**: Shower energy.
+- **jmuon_JGANDALF_CHI2**: Chi-squared value from the energy reconstruction fit using the JGandalf toolkit.
+- **jmuon_JGANDALF_BETA0_RAD, jmuon_JGANDALF_BETA1_RAD**: Parameters from the fit.
+- **jmuon_JGANDALF_NUMBER_OF_HITS**: Number of hits from which the particle track is reconstructed.
+- **jmuon_AASHOWERFIT_ENERGY**: Shower energy from the AANET toolkit.
 
-    jmuon_t - time
+### True (Generated) Variables
+These variables are needed to estimate the efficiency of regressions:
+- **energy**: True particle energy.
+- **dir_x, dir_y, dir_z**: True particle direction coordinates (x, y, z).
 
-    jmuon_likelihood - likelihood of track reconstruction fit
+## Task
+### Neutrino Direction Regression using CNN
 
-    jmuon_pos_x, jmuon_pos_y, jmuon_pos_z - particle position, coordinates x, y, z
+1. **Objective**:
+   - Treat each neutrino class separately to evaluate whether different neutrinos have the same or different directions.
+   
+2. **Neutrino Classes**:
+   - There are eight neutrino classes:
+     - `atm_neutrino_classA.h5`
+     - `atm_neutrino_classB.h5`
+     - `atm_neutrino_classC.h5`
+     - `atm_neutrino_classD.h5`
+     - `atm_neutrino_classE.h5`
+     - `atm_neutrino_classF.h5`
+     - `atm_neutrino_classG.h5`
+     - `atm_neutrino_classH.h5`
 
-    jmuon_dir_x, jmuon_dir_y, jmuon_dir_z - particle direction, coordinates x, y, z
+3. **Model Training**:
+   - Train the model with the following parameters:
+     ```python
+     (reco_dir_x, reco_dir_y, reco_dir_z) = f(jmuon_dir_x, jmuon_dir_y, jmuon_dir_z, jmuon_likelihood)
+     ```
+   
+4. **Prediction Comparison**:
+   - Compare the predicted direction with the true value:
+     ```python
+     true_direction = f(dir_x, dir_y, dir_z)
+     ```
 
-    jmuon_JSHOWERFIT_ENERGY - shower energy
+5. **File Reading**:
+   - To read the HDF5 files, use the following Python code:
+     ```python
+     import pandas as pd
+     df = pd.read_hdf("file.h5", "y")
+     ```
 
-    jmuon_JGANDALF_CHI2 - chi2 from energy reconstruction fit using JGandalf toolkit
+## Getting Started
 
-    jmuon_JGANDALF_BETA0_RAD, jmuon_JGANDALF_BETA1_RAD - parameters from fit
+### Prerequisites
+- Python 3.x
+- Required libraries: `pandas`, `numpy`, `matplotlib`, `tensorflow` (or `keras`)
 
-    jmuon_JGANDALF_NUMBER_OF_HITS - number of hits from which particle track is reconstructed
-
-    jmuon_AASHOWERFIT_ENERGY - shower energy from AANET toolkit
-
-
-
-True (genereted) variables needed to estimate efficiency of regressions:
-
-    energy  - true particle energy
-
-    dir_x, dir_y, dir_z - true particle direction, coordinates x, y, z
-
-TASK
-Neutrino direction regression using CNN
-
-    Treat each neutrino class separately. It allows to check whether different neutrinos
-    have the same or different direction.
-
-    There are eight neutrino classes: 
-             atm_neutrino_classA.h5  atm_neutrino_classE.h5
-             atm_neutrino_classB.h5  atm_neutrino_classF.h5
-             atm_neutrino_classC.h5  atm_neutrino_classG.h5
-             atm_neutrino_classD.h5  atm_neutrino_classH.h5
-
-    Train the model with parameters:
-             (reco_dir_x, reco_dir_y, reco_dir_z) = f(jmuon_dir_x, jmuon_dir_y, jmuon_dir_z, jmuon_likelihood)
-
-    Predicted direction can be compared with true value:  true_direction = f(dir_x, dir_y, dir_z)
-
-    To read file:  import pandas as pd
-                   df = pd.read_hdf("file.h5", "y")
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/neutrino-direction-regression.git
